@@ -13,7 +13,6 @@ set splitbelow splitright
 set title
 set ttimeoutlen=0
 set wildmenu
-set updatetime=100
 
 " Tabs size
 set expandtab
@@ -37,8 +36,20 @@ Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
 Plug 'mkitt/tabline.vim'
-Plug 'fatih/vim-go'
-Plug 'ryanoasis/nerd-fonts'
+Plug 'tpope/vim-fugitive'
+Plug 'iamcco/markdown-preview.nvim'
+Plug 'mattn/emmet-vim'
+Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}
+Plug 'yuezk/vim-js'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'wakatime/vim-wakatime'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -62,9 +73,12 @@ set autowrite
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
+let g:go_highlight_types = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_diagnostic_errors = 1
+let g:go_highlight_diagnostic_warnings = 1
+let g:go_diagnostics_level = 2
 
 " Auto formatting and importing
 let g:go_fmt_autosave = 1
@@ -106,3 +120,9 @@ let g:ctrlp_extensions = ['buffertag', 'tag', 'line', 'dir']
 
 " Start NERDTree and leave the cursor in it.
 " autocmd VimEnter * NERDTree
+"
+" COC
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
